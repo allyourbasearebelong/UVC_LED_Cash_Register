@@ -1,0 +1,44 @@
+// Darkness triggering LDR > Relay > UVC LED's
+// Quite simply, the LDR detects that the cash drawer has been shut,
+// at which point it triggers the opto-isolated relay which completes the circuit to the UVC LED's.
+
+const int ldrPin = A0;
+const int relayPin = 13;
+
+void setup() {
+
+  Serial.begin(9600);
+
+
+  pinMode(ldrPin, INPUT);
+  pinMode(relayPin, OUTPUT);
+
+}
+
+void loop() {
+
+  int ldrStatus = analogRead(ldrPin);
+
+  if (ldrStatus <= 200) {
+
+    digitalWrite(relayPin, HIGH);
+
+    Serial.print("The cash register is closed. Turn on the Relay & UVC LED's");
+
+    Serial.println(ldrStatus);
+
+  } 
+  else {
+
+    digitalWrite(relayPin, LOW);
+
+    Serial.print("The cash register is open. Turn on the Relay & UVC LED's");
+
+    Serial.println(ldrStatus);
+
+  }
+
+}
+
+
+
